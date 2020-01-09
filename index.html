@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover">
+    <meta content="telephone=no" name="format-detection" />
+    <title></title>
+    <style>
+
+      html,body{
+        min-height: 100vh;
+        width: 100vw;
+      }
+    </style>
+
+    <script src="./static/js/dsbridge.js"></script>
+    <script>
+      (function(doc, win) {
+          var docEl = doc.documentElement,
+          resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+          recalc = function() {
+            var clientWidth = docEl.clientWidth;
+            if(!clientWidth) return;
+            if(clientWidth >= 750) {
+              docEl.style.fontSize = '100px';
+            } else {
+              docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
+            }
+          };
+          if(!doc.addEventListener) return;
+          win.addEventListener(resizeEvt, recalc, false);
+          doc.addEventListener('DOMContentLoaded', recalc, false);
+      })(document, window);
+
+      // pc调试开关配置 TODO 根据这个配置，在调用dsbridge的地方给个默认值，使得可以在pc浏览器调试界面
+      var projectConfig = {
+        pcWebDebug: false,
+        bizId: dsBridge.call('receiveParams', 'bizId') || 120,
+        codeVersion: dsBridge.call('receiveParams', 'codeVersion') || 300,
+        isMallShop: dsBridge.call('receiveParams', 'isMallShop') || '1'
+      }
+    </script>
+  </head>
+  <!-- <body style="opacity: 0; transition: opacity .3s;"> -->
+  <body>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
